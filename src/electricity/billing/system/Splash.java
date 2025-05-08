@@ -14,11 +14,7 @@ public class Splash extends JFrame {
         setSize(850,600);
         setLocation(500,200); //from center
 
-
-
-
         setVisible(true);
-
 
         try{
             Thread.sleep(3000); //to hold for 3sec
