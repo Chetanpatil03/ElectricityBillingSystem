@@ -2,17 +2,20 @@ package electricity.billing.system;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener{
 
     JTextField usernameTxt,passwordTxt;
     Choice loginchoice;
-    JButton loginBtn,resetBtn,singUpBtn;
+    JButton loginBtn,cancelBtn,singUpBtn;
 
     Login(){
         super("Login");
 
-        getContentPane().setBackground(Color.white);
+        getContentPane().setBackground(Color.lightGray);
 
 //        adding the components
 
@@ -52,14 +55,18 @@ public class Login extends JFrame {
         loginBtn = new JButton("Login");
         loginBtn.setBounds(330,180,100,20);
         add(loginBtn);
+        loginBtn.addActionListener(this);
 
-        resetBtn = new JButton("Reset");
-        resetBtn.setBounds(460,180,100,20);
-        add(resetBtn);
+        cancelBtn = new JButton("Cancel");
+        cancelBtn.setBounds(460,180,100,20);
+        add(cancelBtn);
+        cancelBtn.addActionListener(this);
 
         singUpBtn = new JButton("Signup");
         singUpBtn.setBounds(400,220,100,20);
         add(singUpBtn);
+
+        singUpBtn.addActionListener(this);
 
 //      image download
 
@@ -85,6 +92,18 @@ public class Login extends JFrame {
 
 
         setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == loginBtn){
+            //database operations
+        } else if (e.getSource() == singUpBtn) {
+            setVisible(false);
+            new Signup();
+        } else if (e.getSource() == cancelBtn) {
+            setVisible(false);
+        }
     }
 
     public static void main(String[] args) {

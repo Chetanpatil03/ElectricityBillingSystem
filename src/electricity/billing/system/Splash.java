@@ -20,7 +20,7 @@ public class Splash extends JFrame {
             Thread.sleep(3000); //to hold for 3sec
             setVisible(false);
 
-            new Login();
+            new Login(); //going to Login page
         } catch (Exception e) {
             e.printStackTrace();
 //            System.out.println(e);
