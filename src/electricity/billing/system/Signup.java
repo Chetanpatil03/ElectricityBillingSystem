@@ -9,7 +9,7 @@ import java.awt.event.ItemListener;
 
 public class Signup extends JFrame implements ActionListener{
     Choice loginAsCho;
-    JTextField meterText,employerText,userNameText,nameText,passwordText;
+    JTextField meterText,userNameText,nameText,passwordText;
     JButton create,back;
     public Signup(){
         super("Signup");
@@ -32,7 +32,7 @@ public class Signup extends JFrame implements ActionListener{
 
         meterText = new JTextField();
         meterText.setBounds(170,100,125,25);
-        meterText.setVisible(false);
+        meterText.setVisible(true);
         add(meterText);
 
         JLabel employer = new JLabel("Employer Id : ");
@@ -40,10 +40,6 @@ public class Signup extends JFrame implements ActionListener{
         employer.setVisible(true);
         add(employer);
 
-        employerText = new JTextField();
-        employerText.setBounds(170,100,125,25);
-        employerText.setVisible(true);
-        add(employerText);
 
         JLabel userName = new JLabel("Username ");
         userName.setBounds(30,140,125,25);
@@ -99,15 +95,13 @@ public class Signup extends JFrame implements ActionListener{
 
                 if(user.equals("ADMIN")){
                     meterNo.setVisible(false);
-                    meterText.setVisible(false);
+                    meterText.setVisible(true);
                     employer.setVisible(true);
-                    employerText.setVisible(true);
 
                 } else if (user.equals("CUSTOMER")) {
                     meterNo.setVisible(true);
                     meterText.setVisible(true);
                     employer.setVisible(false);
-                    employerText.setVisible(false);
                 }
 
             }
@@ -125,7 +119,26 @@ public class Signup extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == create){
-            //the main database function
+            String sloginAs = loginAsCho.getSelectedItem();
+            String susername = userNameText.getText();
+            String spassword = passwordText.getText();
+            String sname = nameText.getText();
+            String smeter = meterText.getText();
+
+            try{
+                database d = new database();
+                String query = null;
+                query = "insert into signup value('"+smeter+"','"+susername+"','"+sname+"','"+spassword+"','"+sloginAs+"')";
+                d.statement.executeUpdate(query);
+
+                JOptionPane.showMessageDialog(null,"Account created");
+                setVisible(false);
+                new Login();
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+            }
+
         }
         else if(e.getSource() == back){
             setVisible(false);
