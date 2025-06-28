@@ -128,20 +128,6 @@ public class Main_class extends JFrame {
         exitMenu.add(exit);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         setLayout(new FlowLayout());
         setVisible(true);
     }

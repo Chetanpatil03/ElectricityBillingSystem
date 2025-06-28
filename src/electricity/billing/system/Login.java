@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.sql.ResultSet;
 
 public class Login extends JFrame implements ActionListener{
 
@@ -46,7 +47,7 @@ public class Login extends JFrame implements ActionListener{
         loginchoice = new Choice();
         loginchoice.setBounds(400,140,100,20);
         loginchoice.addItem("ADMIN");
-        loginchoice.addItem("USER");
+        loginchoice.addItem("CUSTOMER");
 
         add(loginchoice);
 
@@ -91,7 +92,28 @@ public class Login extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == loginBtn){
-            //database operations
+            String susername = usernameTxt.getText();
+            String spassword = passwordTxt.getText();
+            String loginAsch = loginchoice.getSelectedItem();
+
+            try {
+                database d = new database();
+                String query = "select * from signup where username = '" + susername + "' and password = '" + spassword + "' and user_type = '" + loginAsch + "'";
+
+                ResultSet resultSet = d.statement.executeQuery(query);
+                if (resultSet.next()){
+                    setVisible(false);
+                    new Main_class();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Username or Password does not match");
+                }
+            }
+
+            catch (Exception E){
+                E.printStackTrace();
+            }
+
         } else if (e.getSource() == singUpBtn) {
             setVisible(false);
             new Signup();
