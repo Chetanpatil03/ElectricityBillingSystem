@@ -81,22 +81,16 @@ public class Login extends JFrame implements ActionListener{
         add(profilelable);
 
 
-
-
-
-
         setSize(640,300);
         setLocation(400,200);
         setLayout(null);
-
-
 
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginBtn){
+        if(e.getSource() == loginBtn){
             //database operations
         } else if (e.getSource() == singUpBtn) {
             setVisible(false);
