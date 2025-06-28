@@ -9,7 +9,7 @@ import java.awt.event.ItemListener;
 
 public class Signup extends JFrame implements ActionListener{
     Choice loginAsCho;
-    JTextField meterText,userNameText,nameText,passwordText;
+    JTextField meterText,employerText,userNameText,nameText,passwordText;
     JButton create,back;
     public Signup(){
         super("Signup");
@@ -32,13 +32,18 @@ public class Signup extends JFrame implements ActionListener{
 
         meterText = new JTextField();
         meterText.setBounds(170,100,125,25);
-        meterText.setVisible(true);
+        meterText.setVisible(false);
         add(meterText);
 
         JLabel employer = new JLabel("Employer Id : ");
         employer.setBounds(30,100,125,20);
         employer.setVisible(true);
         add(employer);
+
+        employerText = new JTextField();
+        employerText.setBounds(170,100,125,25);
+        employerText.setVisible(true);
+        add(employerText);
 
 
         JLabel userName = new JLabel("Username ");
@@ -97,11 +102,13 @@ public class Signup extends JFrame implements ActionListener{
                     meterNo.setVisible(false);
                     meterText.setVisible(true);
                     employer.setVisible(true);
+                    employerText.setVisible(true);
 
                 } else if (user.equals("CUSTOMER")) {
                     meterNo.setVisible(true);
                     meterText.setVisible(true);
                     employer.setVisible(false);
+                    employerText.setVisible(false);
                 }
 
             }
