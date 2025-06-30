@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class new_Customer extends JFrame {
 
-    JLabel heading,custName,meterNo,address,city,state,email,phone;
-    JTextField nameText,meterText,addText,cityText,stateText,emailText,phoneText;
+    JLabel heading,custName,meterNo,address,city,state,email,phone,meterText;
+    JTextField nameText,addText,cityText,stateText,emailText,phoneText;
     JButton nextBtn,cancelBtn;
 
     new_Customer(){
@@ -17,7 +17,7 @@ public class new_Customer extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(244, 226, 176));
-        add(panel);
+
 
         heading = new JLabel("New Customer");
         heading.setBounds(100,10,200,20);
@@ -36,7 +36,7 @@ public class new_Customer extends JFrame {
         meterNo.setBounds(50,120,150,20);
         panel.add(meterNo);
 
-        meterText = new JTextField(" ");
+        meterText = new JLabel();
         meterText.setBounds(180,120,150,20);
         panel.add(meterText);
 
