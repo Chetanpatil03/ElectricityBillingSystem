@@ -40,12 +40,13 @@ public class new_Customer extends JFrame implements ActionListener {
 
         meterText = new JLabel();
         meterText.setBounds(180,120,150,20);
-        panel.add(meterText);
 
         Random random = new Random();
-        long number = random.nextLong() % 1000000;
+        long number = random.nextLong() % 100000;
 
         meterText.setText(""+Math.abs(number));
+//        System.out.println(" Random number : "+meterText.getText());
+        panel.add(meterText);
 
 
         address = new JLabel("Address");
@@ -128,23 +129,33 @@ public class new_Customer extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nextBtn){
 
+            String smeter = meterText.getText();
             String sname = nameText.getText();
             String semail = emailText.getText();
             String sphone = phoneText.getText();
-            String scity = cityText.getText();
             String sadd = addText.getText();
+            String scity = cityText.getText();
             String sstate = stateText.getText();
-            String smeter = meterText.getText();
 
             database d = new database();
             try{
-                String query = null;
-                query = "";
+                String query_cust = "insert into new_cust values('"+smeter+"','"+sname+"','"+sadd+"','"+scity+"','"+sstate+"','"+semail+"','"+sphone+"')";
+                String query_login = "insert into signup values('"+smeter+"','','"+sname+"','','')";
+
+                d.statement.executeUpdate(query_cust);
+                d.statement.executeUpdate(query_login);
+
+                JOptionPane.showMessageDialog(null,"Customer details added successfully");
+                setVisible(false);
+                new meterInfo(smeter);
             }
             catch (Exception E){
                 E.printStackTrace();
             }
 
+        }
+        else if (e.getSource() == cancelBtn){
+            setVisible(false);
         }
     }
 

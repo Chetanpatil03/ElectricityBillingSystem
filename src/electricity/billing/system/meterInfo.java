@@ -9,9 +9,12 @@ public class meterInfo extends JFrame implements ActionListener {
 
     JButton submit;
     Choice chMeterLoc,chMeterType,chPhaseCode,chBillType;
+    String meternumber;
 
-    public meterInfo(){
+    public meterInfo(String meternumber){
         super("Meter Information");
+
+        this.meternumber = meternumber;
 
         setSize(700,500);
         setLocation(400,200);
@@ -41,7 +44,7 @@ public class meterInfo extends JFrame implements ActionListener {
         meterNo.setBounds(50,80,100,20);
         panel.add(meterNo);
 
-        JLabel meterNoText = new JLabel();
+        JLabel meterNoText = new JLabel(meternumber);
         meterNoText.setBounds(180,80,150,20);
         panel.add(meterNoText);
 
@@ -127,26 +130,6 @@ public class meterInfo extends JFrame implements ActionListener {
         add(label,"East");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //        add(panel);
         setVisible(true);
 
@@ -156,10 +139,34 @@ public class meterInfo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submit){
 //            database code
+
+            String smeter_no = meternumber;
+            String smeter_loc = chMeterLoc.getSelectedItem();
+            String smeter_type = chMeterType.getSelectedItem();
+            String sphase_code = chPhaseCode.getSelectedItem();
+            String sbill_type = chBillType.getSelectedItem();
+            String sdays = "30";
+
+
+            try{
+
+                database d = new database();
+
+                String query = "insert into meter_info('"+smeter_no+"','"+smeter_loc+"','"+smeter_type+"','"+sphase_code+"','"+sbill_type+"','"+sdays+"')";
+
+                d.statement.executeUpdate(query);
+                JOptionPane.showMessageDialog(null,"Meter information saved");
+                setVisible(false);
+
+            }
+            catch (Exception E){
+                E.printStackTrace();
+            }
+
         }
     }
 
     public static void main(String[] args) {
-        new meterInfo();
+        new meterInfo("");
     }
 }
