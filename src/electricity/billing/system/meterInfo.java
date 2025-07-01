@@ -2,8 +2,10 @@ package electricity.billing.system;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class meterInfo extends JFrame  {
+public class meterInfo extends JFrame implements ActionListener {
 
     JButton submit;
     Choice chMeterLoc,chMeterType,chPhaseCode,chBillType;
@@ -114,6 +116,7 @@ public class meterInfo extends JFrame  {
         submit.setBounds(120,370,100,25);
         submit.setBackground(Color.BLACK);
         submit.setForeground(Color.WHITE);
+        submit.addActionListener(this);
         panel.add(submit);
 
         ImageIcon imageIcon = new ImageIcon(ClassLoader.getSystemResource("icon/details.png"));
@@ -147,6 +150,13 @@ public class meterInfo extends JFrame  {
 //        add(panel);
         setVisible(true);
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submit){
+//            database code
+        }
     }
 
     public static void main(String[] args) {

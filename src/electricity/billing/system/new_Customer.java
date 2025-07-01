@@ -2,9 +2,11 @@ package electricity.billing.system;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class new_Customer extends JFrame {
+public class new_Customer extends JFrame implements ActionListener {
 
     JLabel heading,custName,meterNo,address,city,state,email,phone,meterText;
     JTextField nameText,addText,cityText,stateText,emailText,phoneText;
@@ -90,12 +92,14 @@ public class new_Customer extends JFrame {
         nextBtn.setBounds(120,390,100,25);
         nextBtn.setBackground(Color.BLACK);
         nextBtn.setForeground(Color.WHITE);
+        nextBtn.addActionListener(this);
         panel.add(nextBtn);
 
         cancelBtn = new JButton("Cancel");
         cancelBtn.setBounds(250,390,100,25);
         cancelBtn.setBackground(Color.BLACK);
         cancelBtn.setForeground(Color.WHITE);
+        nextBtn.addActionListener(this);
         panel.add(cancelBtn);
 
 
@@ -118,6 +122,30 @@ public class new_Customer extends JFrame {
 
 
         setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == nextBtn){
+
+            String sname = nameText.getText();
+            String semail = emailText.getText();
+            String sphone = phoneText.getText();
+            String scity = cityText.getText();
+            String sadd = addText.getText();
+            String sstate = stateText.getText();
+            String smeter = meterText.getText();
+
+            database d = new database();
+            try{
+                String query = null;
+                query = "";
+            }
+            catch (Exception E){
+                E.printStackTrace();
+            }
+
+        }
     }
 
     public static void main(String[] args) {
