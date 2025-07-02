@@ -145,23 +145,6 @@ public class calculate_bill extends JFrame implements ActionListener {
         add(label,"East");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        add(panel);
         setBounds(400,200,650,400);
         setVisible(true);
 
@@ -170,12 +153,51 @@ public class calculate_bill extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submit){
+
+            String smeter = choMeterNo.getSelectedItem();
+            String sunit = unitText.getText();
+            String smonth = choMonth.getSelectedItem();
+
+            int totalBill = 0;
+            int units = Integer.parseInt(sunit);
+            String query_tax = "select * from tax";
+
             try{
                 database d =new database();
+
+                ResultSet resultSet = d.statement.executeQuery(query_tax);
+
+                while (resultSet.next()){
+
+                    totalBill += units * Integer.parseInt(resultSet.getString("cost_per_unit"));
+                    totalBill += Integer.parseInt(resultSet.getString("meter_rent"));
+                    totalBill += Integer.parseInt(resultSet.getString("service_charge"));
+                    totalBill += Integer.parseInt(resultSet.getString("service_tax"));
+                    totalBill += Integer.parseInt(resultSet.getString("swachh_bharat"));
+                    totalBill += Integer.parseInt(resultSet.getString("fixed_tax"));
+
+                }
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Error "+ex.getMessage());
             }
+
+            String query_total_bill = "insert into bill values ('"+smeter+"','"+smonth+"','"+sunit+"','"+totalBill+"','Not Paid')";
+
+            try {
+                database d = new database();
+
+                d.statement.executeUpdate(query_total_bill);
+                JOptionPane.showMessageDialog(null,"Customer Bill updated successfully");
+                setVisible(false);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+
+        } else if (e.getSource()==cancel)  {
+            setVisible(false);
         }
     }
 
