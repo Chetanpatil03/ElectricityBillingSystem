@@ -54,3 +54,16 @@ drop table tax;
 insert into tax values('10','45','20','58','5','18');
 
 select * from tax;
+
+create table bill(
+meter_no varchar(20),
+month varchar(20),
+unit varchar(20),
+total_bill varchar(20),
+status varchar(20));
+
+select * from bill;
+
+
+
+
