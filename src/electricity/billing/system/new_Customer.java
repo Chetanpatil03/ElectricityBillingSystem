@@ -100,7 +100,7 @@ public class new_Customer extends JFrame implements ActionListener {
         cancelBtn.setBounds(250,390,100,25);
         cancelBtn.setBackground(Color.BLACK);
         cancelBtn.setForeground(Color.WHITE);
-        nextBtn.addActionListener(this);
+        cancelBtn.addActionListener(this);
         panel.add(cancelBtn);
 
 
@@ -125,9 +125,11 @@ public class new_Customer extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    boolean opened = false;
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == nextBtn){
+        if (e.getSource() == nextBtn  && !opened){
 
             String smeter = meterText.getText();
             String sname = nameText.getText();
@@ -139,8 +141,8 @@ public class new_Customer extends JFrame implements ActionListener {
 
             database d = new database();
             try{
-                String query_cust = "insert into new_cust values('"+smeter+"','"+sname+"','"+sadd+"','"+scity+"','"+sstate+"','"+semail+"','"+sphone+"')";
-                String query_login = "insert into signup values('"+smeter+"','','"+sname+"','','')";
+                String query_cust = "insert into new_cust(meter_no,name,address,city,state,email,phone) values('"+smeter+"','"+sname+"','"+sadd+"','"+scity+"','"+sstate+"','"+semail+"','"+sphone+"')";
+                String query_login = "insert into signup values()('"+smeter+"','','"+sname+"','','')";
 
                 d.statement.executeUpdate(query_cust);
                 d.statement.executeUpdate(query_login);
@@ -150,6 +152,7 @@ public class new_Customer extends JFrame implements ActionListener {
                 new meterInfo(smeter);
             }
             catch (Exception E){
+                JOptionPane.showMessageDialog(null, "Error: " + E.getMessage());
                 E.printStackTrace();
             }
 

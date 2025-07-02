@@ -147,12 +147,13 @@ public class meterInfo extends JFrame implements ActionListener {
             String sbill_type = chBillType.getSelectedItem();
             String sdays = "30";
 
-
             try{
 
                 database d = new database();
 
-                String query = "insert into meter_info('"+smeter_no+"','"+smeter_loc+"','"+smeter_type+"','"+sphase_code+"','"+sbill_type+"','"+sdays+"')";
+                String query = "insert into meter_info(meter_no, meter_loc, meter_type, phase_code, bill_type, days) values('"+smeter_no+"','"+smeter_loc+"','"+smeter_type+"','"+sphase_code+"','"+sbill_type+"','"+sdays+"')";
+
+//                System.out.println(query); for debugging
 
                 d.statement.executeUpdate(query);
                 JOptionPane.showMessageDialog(null,"Meter information saved");
@@ -162,6 +163,9 @@ public class meterInfo extends JFrame implements ActionListener {
             catch (Exception E){
                 E.printStackTrace();
             }
+
+        }
+        else{
 
         }
     }
