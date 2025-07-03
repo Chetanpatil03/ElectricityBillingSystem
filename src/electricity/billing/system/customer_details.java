@@ -4,15 +4,17 @@ import net.proteanit.sql.DbUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
-public class deposite_details extends JFrame {
+public class customer_details extends JFrame implements ActionListener {
 
-    JButton search;
+    JButton search,print,close;
     Choice meterNoCho,nameCho;
     JTable table;
-    deposite_details(){
-        super("Deposit Details");
+    customer_details(){
+        super("Customer Details");
         setLayout(null);
         getContentPane().setBackground(new Color(228, 222, 222));
         setBounds(400,200,700,500);
@@ -83,6 +85,23 @@ public class deposite_details extends JFrame {
 
         search.setBounds(20,70,100,20);
         add(search);
+        search.addActionListener(this);
+
+        print = new JButton("Print");
+        print.setBackground(Color.BLACK);
+        print.setForeground(Color.WHITE);
+
+        print.setBounds(140,70,100,20);
+        add(print);
+        print.addActionListener(this);
+
+        close = new JButton("Close");
+        close.setBackground(Color.BLACK);
+        close.setForeground(Color.WHITE);
+
+        close.setBounds(550,70,100,20);
+        add(close);
+        close.addActionListener(this);
 
 
 
@@ -92,7 +111,40 @@ public class deposite_details extends JFrame {
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == search){
+
+            String query_search = "select * from new_cust where meter_no = '"+meterNoCho.getSelectedItem()+"' and name = '"+nameCho.getSelectedItem()+"' ";
+
+
+
+            try {
+                database d = new database();
+
+                ResultSet resultSet = d.statement.executeQuery(query_search);
+                table.setModel(DbUtils.resultSetToTableModel(resultSet));
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        } else if (e.getSource()==print) {
+
+            try {
+                table.print();
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+            }
+
+
+        } else if (e.getSource() == close) {
+            setVisible(false);
+        }
+    }
+
     public static void main(String[] args) {
-        new deposite_details();
+        new customer_details();
     }
 }
