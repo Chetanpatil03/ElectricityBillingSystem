@@ -2,10 +2,8 @@ package electricity.billing.system;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
+import java.sql.ResultSet;
 
 public class Signup extends JFrame implements ActionListener{
     Choice loginAsCho;
@@ -58,9 +56,31 @@ public class Signup extends JFrame implements ActionListener{
         name.setBounds(30,180,125,20);
         add(name);
 
-        nameText = new JTextField();
+        nameText = new JTextField("");
         nameText.setBounds(170,180,125,20);
         add(nameText);
+
+        meterText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                try {
+                    database d = new database();
+                    ResultSet resultSet = d.statement.executeQuery("select * from signup where meter_num = '"+meterText.getText()+"'");
+
+                    if (resultSet.next()){
+                        nameText.setText(resultSet.getString("name"));
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         JLabel password = new JLabel("Password");
         password.setBounds(30,220,125,20);
@@ -103,12 +123,14 @@ public class Signup extends JFrame implements ActionListener{
                     meterText.setVisible(true);
                     employer.setVisible(true);
                     employerText.setVisible(true);
+                    nameText.setEditable(true);
 
                 } else if (user.equals("CUSTOMER")) {
                     meterNo.setVisible(true);
                     meterText.setVisible(true);
                     employer.setVisible(false);
                     employerText.setVisible(false);
+                    nameText.setEditable(false);
                 }
 
             }
@@ -134,8 +156,14 @@ public class Signup extends JFrame implements ActionListener{
 
             try{
                 database d = new database();
-                String query = null;
-                query = "insert into signup value('"+smeter+"','"+susername+"','"+sname+"','"+spassword+"','"+sloginAs+"')";
+                String query= "";
+                if (loginAsCho.getSelectedItem().equals("ADMIN")){
+                  query  = "insert into signup value('"+smeter+"','"+susername+"','"+sname+"','"+spassword+"','"+sloginAs+"')";
+                }
+                else if (loginAsCho.getSelectedItem().equals("CUSTOMER")){
+                    query  = "update signup set username = '"+susername+"', password = '"+spassword+"',user_type = '"+sloginAs+"' where meter_num = '"+smeter+"'";
+                }
+
                 d.statement.executeUpdate(query);
 
                 JOptionPane.showMessageDialog(null,"Account created");

@@ -103,7 +103,7 @@ public class Login extends JFrame implements ActionListener{
                 ResultSet resultSet = d.statement.executeQuery(query);
                 if (resultSet.next()){
                     setVisible(false);
-                    new Main_class();
+                    new Main_class(loginAsch);
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Username or Password does not match");
