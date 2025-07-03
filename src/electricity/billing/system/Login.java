@@ -102,8 +102,9 @@ public class Login extends JFrame implements ActionListener{
 
                 ResultSet resultSet = d.statement.executeQuery(query);
                 if (resultSet.next()){
+                    String meterNo = resultSet.getString("meter_num");
                     setVisible(false);
-                    new Main_class(loginAsch);
+                    new Main_class(loginAsch,meterNo);
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Username or Password does not match");

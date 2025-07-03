@@ -2,13 +2,16 @@ package electricity.billing.system;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Main_class extends JFrame {
+public class Main_class extends JFrame implements ActionListener {
 
-    String accType;
-    public Main_class(String accType){
+    String accType,meterNO;
+    public Main_class(String accType,String meterNO){
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.accType = accType;
+        this.meterNO = meterNO;
 
         ImageIcon imageIcon = new ImageIcon(ClassLoader.getSystemResource("icon/ebs.png"));
         Image image = imageIcon.getImage().getScaledInstance(1300,830,Image.SCALE_DEFAULT);
@@ -29,6 +32,7 @@ public class Main_class extends JFrame {
         ImageIcon customerOne = new ImageIcon(ClassLoader.getSystemResource("icon/newcustomer.png"));
         Image customerImage = customerOne.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         newCustomer.setIcon(new ImageIcon(customerImage));
+        newCustomer.addActionListener(this);
         menu.add(newCustomer);
 
 
@@ -37,6 +41,7 @@ public class Main_class extends JFrame {
         ImageIcon customerDetailsOne = new ImageIcon(ClassLoader.getSystemResource("icon/customerDetails.png"));
         Image customerDetailsImage = customerDetailsOne.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         customerDetails.setIcon(new ImageIcon(customerDetailsImage));
+        customerDetails.addActionListener(this);
         menu.add(customerDetails);
 
         JMenuItem depositDetails = new JMenuItem("Deposit Details");
@@ -44,6 +49,7 @@ public class Main_class extends JFrame {
         ImageIcon depositDetailsOne = new ImageIcon(ClassLoader.getSystemResource("icon/depositdetails.png"));
         Image depositDetailsImage = depositDetailsOne.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         depositDetails.setIcon(new ImageIcon(depositDetailsImage));
+        depositDetails.addActionListener(this);
         menu.add(depositDetails);
 
         JMenuItem calculateBill = new JMenuItem("Calculate Bill");
@@ -51,6 +57,7 @@ public class Main_class extends JFrame {
         ImageIcon calculateBillIcon = new ImageIcon(ClassLoader.getSystemResource("icon/calculatorbills.png"));
         Image calculateBillImage = calculateBillIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         calculateBill.setIcon(new ImageIcon(calculateBillImage));
+        calculateBill.addActionListener(this);
         menu.add(calculateBill);
 
         JMenu informationMenu = new JMenu("Information");
@@ -62,6 +69,7 @@ public class Main_class extends JFrame {
         ImageIcon updateInfoIcon = new ImageIcon(ClassLoader.getSystemResource("icon/refresh.png"));
         Image upInfoImg = updateInfoIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         upInfo.setIcon(new ImageIcon(upInfoImg));
+        upInfo.addActionListener(this);
         informationMenu.add(upInfo);
 
         JMenuItem viewInfo = new JMenuItem("View Information");
@@ -69,6 +77,7 @@ public class Main_class extends JFrame {
         ImageIcon viewInfoIcon = new ImageIcon(ClassLoader.getSystemResource("icon/information.png"));
         Image viewInfoImg = viewInfoIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         viewInfo.setIcon(new ImageIcon(viewInfoImg));
+        viewInfo.addActionListener(this);
         informationMenu.add(viewInfo);
 
         JMenu userMenu = new JMenu("User");
@@ -80,6 +89,7 @@ public class Main_class extends JFrame {
         ImageIcon payBillIcon = new ImageIcon(ClassLoader.getSystemResource("icon/pay.png"));
         Image payBillImg = payBillIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         payBill.setIcon(new ImageIcon(payBillImg));
+        payBill.addActionListener(this);
         userMenu.add(payBill);
 
         JMenuItem billDetails = new JMenuItem("Bill Details");
@@ -87,6 +97,7 @@ public class Main_class extends JFrame {
         ImageIcon billDetailsIcon = new ImageIcon(ClassLoader.getSystemResource("icon/details.png"));
         Image billDetailsImg = billDetailsIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         billDetails.setIcon(new ImageIcon(billDetailsImg));
+        billDetails.addActionListener(this);
         userMenu.add(billDetails);
 
         JMenu billMenu = new JMenu("Bill");
@@ -98,6 +109,7 @@ public class Main_class extends JFrame {
         ImageIcon genBillIcon = new ImageIcon(ClassLoader.getSystemResource("icon/bill.png"));
         Image genBillImg = genBillIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         generateBill.setIcon(new ImageIcon(genBillImg));
+        generateBill.addActionListener(this);
         billMenu.add(generateBill);
 
         JMenu utilityMenu = new JMenu("Utility");
@@ -109,6 +121,7 @@ public class Main_class extends JFrame {
         ImageIcon notepadIcon = new ImageIcon(ClassLoader.getSystemResource("icon/notepad.png"));
         Image notepadImg = notepadIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         notePad.setIcon(new ImageIcon(notepadImg));
+        notePad.addActionListener(this);
         utilityMenu.add(notePad);
 
         JMenuItem calculator = new JMenuItem("Calculator");
@@ -116,6 +129,7 @@ public class Main_class extends JFrame {
         ImageIcon calculatorIcon = new ImageIcon(ClassLoader.getSystemResource("icon/calculator.png"));
         Image calculatorImg = calculatorIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         calculator.setIcon(new ImageIcon(calculatorImg));
+        calculator.addActionListener(this);
         utilityMenu.add(calculator);
 
         JMenu exitMenu = new JMenu("Exit");
@@ -127,6 +141,7 @@ public class Main_class extends JFrame {
         ImageIcon exitIcon = new ImageIcon(ClassLoader.getSystemResource("icon/exit.png"));
         Image exitImg = exitIcon.getImage().getScaledInstance(24,24,Image.SCALE_DEFAULT);
         exit.setIcon(new ImageIcon(exitImg));
+        exit.addActionListener(this);
         exitMenu.add(exit);
 
 
@@ -148,7 +163,26 @@ public class Main_class extends JFrame {
         setVisible(true);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        String msg = e.getActionCommand();
+        
+        if (msg.equals("New Customer")){
+            new new_Customer();
+        } else if (msg.equals("Customer Details")) {
+            new customer_details();
+        } else if (msg.equals("Deposit Details")) {
+            new deposit_details();
+        } else if (msg.equals("Calculate Bill")) {
+            new calculate_bill();
+        } else if (msg.equals("View Information")) {
+            new view_information(meterNO);
+        }
+
+    }
+
     public static void main(String[] args) {
-        new Main_class("");
+        new Main_class("","");
     }
 }
