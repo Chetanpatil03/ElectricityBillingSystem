@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public class deposit_details extends JFrame implements ActionListener {
 
     JButton search,print,close;
-    Choice meterNoCho,nameCho;
+    Choice meterNoCho,monthChoice;
     JTable table;
     deposit_details(){
         super("Deposit Details");
@@ -29,7 +29,7 @@ public class deposit_details extends JFrame implements ActionListener {
 
         try{
             database d =new database();
-            ResultSet rs = d.statement.executeQuery("select * from new_cust");
+            ResultSet rs = d.statement.executeQuery("select * from bill");
             while (rs.next()){
                 meterNoCho.add(rs.getString("meter_no"));
             }
@@ -40,33 +40,35 @@ public class deposit_details extends JFrame implements ActionListener {
 
         }
 
-        JLabel searchByName = new JLabel("Search by meter Name");
-        searchByName.setBounds(350,20,150,25);
-        add(searchByName);
 
-        nameCho = new Choice();
-        nameCho.setBounds(500,20,100,25);
-        add(nameCho);
 
-        try{
-            database d =new database();
-            ResultSet rs = d.statement.executeQuery("select * from new_cust");
-            while (rs.next()){
-                nameCho.add(rs.getString("name"));
-            }
-        }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Error "+e.getMessage());
-            e.printStackTrace();
+        JLabel searchByMonth = new JLabel("Search by Month");
+        searchByMonth.setBounds(350,20,150,25);
+        add(searchByMonth);
 
-        }
+        monthChoice = new Choice();
+        monthChoice.setBounds(500,20,100,25);
+        add(monthChoice);
+        monthChoice.add("January");
+        monthChoice.add("February");
+        monthChoice.add("March");
+        monthChoice.add("April");
+        monthChoice.add("May");
+        monthChoice.add("June");
+        monthChoice.add("July");
+        monthChoice.add("August");
+        monthChoice.add("September");
+        monthChoice.add("October");
+        monthChoice.add("November");
+        monthChoice.add("December");
+
 
         table = new JTable();
         try{
 
             database d = new database();
 
-            ResultSet resultSet = d.statement.executeQuery("select * from new_cust");
+            ResultSet resultSet = d.statement.executeQuery("select * from bill");
             table.setModel(DbUtils.resultSetToTableModel(resultSet));
 
         } catch (Exception e) {
@@ -115,7 +117,7 @@ public class deposit_details extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == search){
 
-            String query_search = "select * from new_cust where meter_no = '"+meterNoCho.getSelectedItem()+"' and name = '"+nameCho.getSelectedItem()+"' ";
+            String query_search = "select * from bill where meter_no = '"+meterNoCho.getSelectedItem()+"' and month = '"+monthChoice.getSelectedItem()+"' ";
 
 
 
