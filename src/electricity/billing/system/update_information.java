@@ -97,7 +97,7 @@ public class update_information extends JFrame  implements ActionListener {
                 cityText.setText(resultSet.getString("city"));
                 stateText.setText(resultSet.getString("state"));
                 emailText.setText(resultSet.getString("email"));
-                phoneText.setText(resultSet.getString("phone_no"));
+                phoneText.setText(resultSet.getString("phone"));
 
             }
 
@@ -149,7 +149,14 @@ public class update_information extends JFrame  implements ActionListener {
             try{
                 database d = new database();
 
-                String Query = "update new_cust set "
+                String Query = "update new_cust set address='"+saddress+"',city='"+scity+"',state = '"+sstate+"',email = '"+semail+"',phone='"+sphone+"' where meter_no = '"+meter+"' ";
+                d.statement.executeUpdate(Query);
+                JOptionPane.showMessageDialog(null,"Customer Data updated Successfully");
+                setVisible(false);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Error "+ex.getMessage());
+                ex.printStackTrace();
             }
 
 
