@@ -35,6 +35,7 @@ public class update_information extends JFrame  implements ActionListener {
 
         nameText = new JLabel("");
         nameText.setBounds(150,70,200,20);
+        nameText.setFont(new Font("monospaced",Font.BOLD,20));
         panel.add(nameText);
 
         JLabel meterNo = new JLabel("Meter no:");
@@ -43,6 +44,7 @@ public class update_information extends JFrame  implements ActionListener {
 
         JLabel meterText = new JLabel("");
         meterText.setBounds(150,118,100,20);
+        meterText.setFont(new Font("monospaced",Font.BOLD,20));
         panel.add(meterText);
 
         JLabel address = new JLabel("Address : ");
