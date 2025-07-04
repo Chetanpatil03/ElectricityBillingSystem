@@ -167,8 +167,8 @@ public class Main_class extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         String msg = e.getActionCommand();
-        
-        if (msg.equals("New Customer")){
+
+        if (msg.equals("New Customer")) {
             new new_Customer();
         } else if (msg.equals("Customer Details")) {
             new customer_details();
@@ -178,9 +178,17 @@ public class Main_class extends JFrame implements ActionListener {
             new calculate_bill();
         } else if (msg.equals("View Information")) {
             new view_information(meterNO);
-        }
+        } else if (msg.equals("Update Information")) {
+            new update_information(meterNO);
+        } else if (msg.equals("Bill Details")) {
+//            new bill_details(meterNO);
+        } else if (msg.equals("Calculator")) {
 
+        }
     }
+
+
+
 
     public static void main(String[] args) {
         new Main_class("","");
