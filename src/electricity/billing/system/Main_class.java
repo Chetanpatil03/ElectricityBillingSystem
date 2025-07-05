@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Main_class extends JFrame implements ActionListener {
 
@@ -181,9 +182,27 @@ public class Main_class extends JFrame implements ActionListener {
         } else if (msg.equals("Update Information")) {
             new update_information(meterNO);
         } else if (msg.equals("Bill Details")) {
-//            new bill_details(meterNO);
+            new bill_details(meterNO);
         } else if (msg.equals("Calculator")) {
+            try{
 
+                Runtime.getRuntime().exec("calc.exe");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else if (msg.equals("Notepad")) {
+            try{
+                Runtime.getRuntime().exec("notepad.exe");
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } else if (msg.equals("Exit")) {
+            setVisible(false);
+            new Login();
+
+        } else if (msg.equals("Pay Bill")) {
+            new pay_bill(meterNO);
         }
     }
 
