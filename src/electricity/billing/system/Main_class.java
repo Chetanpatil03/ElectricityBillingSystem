@@ -203,6 +203,8 @@ public class Main_class extends JFrame implements ActionListener {
 
         } else if (msg.equals("Pay Bill")) {
             new pay_bill(meterNO);
+        } else if (msg.equals("Generate Bill")) {
+            new generate_bill(meterNO);
         }
     }
 

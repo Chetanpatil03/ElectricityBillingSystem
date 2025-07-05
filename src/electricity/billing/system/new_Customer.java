@@ -142,7 +142,7 @@ public class new_Customer extends JFrame implements ActionListener {
             database d = new database();
             try{
                 String query_cust = "insert into new_cust(meter_no,name,address,city,state,email,phone) values('"+smeter+"','"+sname+"','"+sadd+"','"+scity+"','"+sstate+"','"+semail+"','"+sphone+"')";
-                String query_login = "insert into signup values()('"+smeter+"','','"+sname+"','','')";
+                String query_login = "insert into signup values('"+smeter+"','','"+sname+"','','')";
 
                 d.statement.executeUpdate(query_cust);
                 d.statement.executeUpdate(query_login);
