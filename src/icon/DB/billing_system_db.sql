@@ -37,6 +37,7 @@ days varchar(10)
 );
 
 drop table meter_info;
+truncate meter_info;
 
 select * from meter_info;
 
@@ -63,6 +64,7 @@ total_bill varchar(20),
 status varchar(20));
 
 select * from bill;
+truncate bill;
 
 
 
